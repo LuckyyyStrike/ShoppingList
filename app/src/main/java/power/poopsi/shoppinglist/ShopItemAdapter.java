@@ -2,10 +2,10 @@ package power.poopsi.shoppinglist;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -20,6 +20,10 @@ import power.poopsi.shoppinglist.model.ShopItemRepository;
  * Created by ingos_000 on 06.12.2014.
  */
 public class ShopItemAdapter extends BaseAdapter{
+    /*
+        TODO
+        + remove log statements
+     */
     private Context context;
     private ArrayList<ShopItemEntity> list;
 
@@ -29,7 +33,8 @@ public class ShopItemAdapter extends BaseAdapter{
         MainActivity main = (MainActivity) context;
         SharedPreferences settings = main.getSharedPreferences("mySettings",0);
         for(int i = 0; i < list.size(); i++) {
-            list.get(i).setIsChecked(settings.getBoolean(String.format("",i),false));
+            list.get(i).setIsChecked(settings.getBoolean(Integer.toString(i),false));
+            Log.d("SharedPreferences","isChecked set to " + Boolean.toString(settings.getBoolean(Integer.toString(i),false)));
         }
     }
 
@@ -51,7 +56,7 @@ public class ShopItemAdapter extends BaseAdapter{
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View row = convertView;
-        MyViewHolder holder = null;
+        MyViewHolder holder;
         final MainActivity main = (MainActivity) context;
         final EditText et = (EditText) main.findViewById(R.id.editText_ShopItemName);
         if (row == null) { // 1st time
@@ -90,14 +95,17 @@ public class ShopItemAdapter extends BaseAdapter{
         holder.isCheckedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked != buttonView.isChecked()) {
+                Log.d("CheckedChanged", "onCheckedChanged called");
                     SharedPreferences settings = main.getSharedPreferences("mySettings", 0);
                     if (isChecked) {
-                        settings.edit().putBoolean(String.format("", position), true).commit();
+                        settings.edit().putBoolean(Integer.toString(position), true).commit();
+                        list.get(position).setIsChecked(true);
+                        Log.d("SharedPreferences","set to TRUE at " + Integer.toString(position));
                     } else {
-                        settings.edit().putBoolean(String.format("", position), false).commit();
+                        settings.edit().putBoolean(Integer.toString(position), false).commit();
+                        list.get(position).setIsChecked(false);
+                        Log.d("SharedPreferences","set to FALSE at " + Integer.toString(position));
                     }
-                }
             }
         });
 
