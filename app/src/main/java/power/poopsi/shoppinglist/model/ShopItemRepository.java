@@ -8,11 +8,12 @@ import java.util.List;
  */
 public class ShopItemRepository {
     private List<ShopItemEntity> _shopItemList;
+    public ShopItemRepository() {
+    }
 
     public List<ShopItemEntity> getShopItemList(){
         if(_shopItemList == null) {
             _shopItemList = new ArrayList<ShopItemEntity>();
-            makeBulkData();
         }
         return _shopItemList;
     }
@@ -27,7 +28,7 @@ public class ShopItemRepository {
         };
 
         for(int i = 0; i < arr.length ; i++) {
-            ShopItemEntity peter = new ShopItemEntity(arr[i].toString(),false);
+            ShopItemEntity peter = new ShopItemEntity(i,arr[i].toString(),false);
             _shopItemList.add(peter);
         }
     }

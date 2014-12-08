@@ -6,21 +6,31 @@ package power.poopsi.shoppinglist.model;
 public class ShopItemEntity extends EntityBase
 implements IEntity{
 
-    private boolean _isChecked;
+    private boolean isChecked;
+    private long _id;
 
     public ShopItemEntity() {
-        _isChecked = false;
+        this.isChecked = false;
     }
-    public ShopItemEntity(String dn,boolean ic) {
+    public ShopItemEntity( long id ,String dn,boolean ic){
         this.displayName = dn;
-        this._isChecked = ic;
+        this.isChecked = ic;
+        this._id = id;
     }
 
     public boolean getIsChecked() {
-        return _isChecked;
+        return isChecked;
     }
     public void setIsChecked(boolean isChecked) {
-        _isChecked = isChecked;
+        this.isChecked = isChecked;
+    }
+
+    public long get_id(){
+        return _id;
+    }
+
+    private void set_id(long id){
+        _id = id;
     }
 
 }

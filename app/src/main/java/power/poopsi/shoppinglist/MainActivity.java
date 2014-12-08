@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import power.poopsi.shoppinglist.helper.ShoppingListDatabaseAdapter;
+
 
 public class MainActivity extends ActionBarActivity
 implements ShopItemFragment.OnFragmentInteractionListener{
@@ -17,6 +19,7 @@ implements ShopItemFragment.OnFragmentInteractionListener{
      */
 
     private Button addShopItemButton;
+    private ShoppingListDatabaseAdapter dbHelper;
 
     //region LifeCycle methods
     @Override
@@ -25,6 +28,13 @@ implements ShopItemFragment.OnFragmentInteractionListener{
         setContentView(R.layout.activity_main);
         addShopItemButton = (Button) findViewById(R.id.button_AddShopItem);
         Log.d("LifeCycle", "onCreate called");
+//        dbHelper = new ShoppingListDatabaseAdapter(this);
+//        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
+//        if(sqLiteDatabase != null) {
+//            Log.d("Database","Database has been initialized");
+//        }else{
+//            Log.d("Database","Database initialization failed");
+//        }
     }
 
     @Override

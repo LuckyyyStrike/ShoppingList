@@ -1,24 +1,17 @@
 package power.poopsi.shoppinglist;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 import power.poopsi.shoppinglist.dummy.DummyContent;
-import power.poopsi.shoppinglist.model.ShopItemEntity;
 
 /**
  * A fragment representing a list of Items.
@@ -70,6 +63,7 @@ public class ShopItemFragment extends Fragment implements AbsListView.OnItemClic
     public ShopItemFragment() {
     }
 
+    //region LifeCycle methods
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +82,32 @@ public class ShopItemFragment extends Fragment implements AbsListView.OnItemClic
         mAdapter = new ShopItemAdapter(getActivity());
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    //endregion
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
