@@ -21,9 +21,15 @@ import power.poopsi.shoppinglist.model.ShopItemEntity;
         TODO
         Remove logging statements
      */
+    private static long bla = 0;
     private DatabaseHelper helper;
     public ShoppingListDatabaseAdapter(Context c) {
         helper = new DatabaseHelper(c);
+        ContentValues cv = new ContentValues();
+        cv.put(DatabaseHelper.ITEM_NAME, "Mandarinen");
+        cv.put(DatabaseHelper.IS_CHECKED, true);
+        bla = helper.getWritableDatabase().insert(DatabaseHelper.TABLE_NAME,null,cv);
+
     }
 
     public long insertListItem(String itemName, boolean isChecked) {
@@ -91,7 +97,7 @@ import power.poopsi.shoppinglist.model.ShopItemEntity;
         public DatabaseHelper(Context c) {
             super(c, DATABASE_NAME, null, DATABASE_VERSION);
             this.context = c;
-            Log.e("Database", "DatabaseHelper constructed");
+            Log.d("Database", "DatabaseHelper constructed");
         }
 
         @Override
@@ -100,7 +106,7 @@ import power.poopsi.shoppinglist.model.ShopItemEntity;
                 db.execSQL(CREATE_TABLE);
                 Log.d("Database", "CREATING TABLE");
             } catch (Exception e) {
-                Log.e("Database", "Error CREATING TABLE: " + e);
+                Log.d("Database", "Error CREATING TABLE: " + e);
             }
         }
 
@@ -111,7 +117,7 @@ import power.poopsi.shoppinglist.model.ShopItemEntity;
                 Log.d("Database", "DROPPING TABLE");
                 onCreate(db);
             } else {
-                Log.w("Database", "Wrong version number!");
+                Log.d("Database", "Wrong version number!");
             }
         }
     }

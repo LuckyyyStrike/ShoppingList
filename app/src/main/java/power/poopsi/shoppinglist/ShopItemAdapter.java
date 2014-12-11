@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -42,6 +41,7 @@ public class ShopItemAdapter extends BaseAdapter{
         for(int i = 0; i < list.size(); i++) {
             Log.d("SharedPreferences","isChecked set to " + Boolean.toString(settings.getBoolean(Integer.toString(i), false)));
         }
+
     }
 
     @Override
@@ -99,12 +99,15 @@ public class ShopItemAdapter extends BaseAdapter{
         main.getAddShopItemButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(0<adapter.insertListItem(et.getText().toString(),false)){
-                    list.add(0,new ShopItemEntity(-1,et.getText().toString(),false));
-                }
-                else {
-                    Toast.makeText(context,R.string.errorAddingShopItem,Toast.LENGTH_SHORT).show();
-                }
+//                if(0<adapter.insertListItem(et.getText().toString(),false)){
+//                    adapter.insertListItem(et.getText().toString(),false);
+//                    list.add(0,new ShopItemEntity(-1,et.getText().toString(),false));
+//                }
+//                else {
+//                    Toast.makeText(context,R.string.errorAddingShopItem,Toast.LENGTH_SHORT).show();
+//                }
+                long id = adapter.insertListItem(et.getText().toString(), false);
+                list.add(0,new ShopItemEntity(id,et.getText().toString(),false));
                 et.setText("");
                 notifyDataSetChanged();
             }
@@ -114,12 +117,14 @@ public class ShopItemAdapter extends BaseAdapter{
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.d("CheckedChanged", "onCheckedChanged called");
 //                    SharedPreferences settings = main.getSharedPreferences("mySettings", 0);
-                ShopItemEntity item = list.get(position);
-                if(0<adapter.updateIsChecked(item.get_id(),isChecked)){
-                    item.setIsChecked(isChecked);
-                    Log.d("SharedPreferences", "set to "+Boolean.toString(isChecked)+" at " + Integer.toString(position));
-                } else {
-                    Log.e("Database","UPDATE RETURNED COUNT 0");
+                if(position < list.size()) {
+                    ShopItemEntity item = list.get(position);
+                    if (0 < adapter.updateIsChecked(item.get_id(), isChecked)) {
+                        item.setIsChecked(isChecked);
+                        Log.d("SharedPreferences", "set to " + Boolean.toString(isChecked) + " at " + Integer.toString(position));
+                    } else {
+                        Log.d("Database", "UPDATE RETURNED COUNT 0");
+                    }
                 }
             }
         });

@@ -7,4 +7,5 @@
     <string name="add">Add</string>
     <string name="editTextHint_ShopItemName">New item name</string>
     <string name="errorAddingShopItem">Could not add shopping item</string>
+    <string name="emptyShoppingList"> The list is empty</string>
 </resources>
